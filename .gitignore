@@ -1,0 +1,6 @@
+#ignore eclipse WorkSpace config files
+.metadata
+RemoteSystemsTempFiles
+#ignore java jar,class files
+*.jar
+*.class
