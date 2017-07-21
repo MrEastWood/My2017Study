@@ -1,5 +1,7 @@
 package com.test.dao;
 
+import java.util.Date;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.test.entry.BookClassify;
 import com.test.entry.User;
 @ContextConfiguration(locations= {"classpath*:config/applicationContext.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,9 +38,24 @@ public class TestMain {
     public void load() {
         Session session = getSession();
         session.beginTransaction();
-        User u = (User)session.get(User.class, "100001");
-        System.out.println(u.getId());
-        System.out.println(u.getName());
+        BookClassify b = (BookClassify)session.get(BookClassify.class, 1);
+        System.out.println(b.getClassifyName());
+        System.out.println(b.getDescription());
+        System.out.println(b.getCreateDate());
+        session.getTransaction().commit();
+    }
+    
+    @Test
+    public void saveUser(){
+    	Session session = getSession();
+        session.beginTransaction();
+        
+        BookClassify classify = new BookClassify();
+        classify.setClassifyName("aaaa");
+        classify.setDescription("bbbbbbbb");
+        classify.setCreateDate(new Date());
+        classify.setLastModifyDate(new Date());
+        session.save(classify);
         session.getTransaction().commit();
     }
 }
