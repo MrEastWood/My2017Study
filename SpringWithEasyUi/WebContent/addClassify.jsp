@@ -13,6 +13,14 @@
 	<jsp:include page="master.html"></jsp:include>
 	<div id="mainPanle" region="center" style="background: #eee; overflow-y:hidden">
 		<div class="easyui-panel" title="添加分类" style="width:100%;max-width:400px;padding:30px 60px;">
+			<!--  
+			<form action="addClassify.action" method="post" >
+				<input type="text" name="classifyName"></input>
+				<input type="text" name="description"></input>
+				<input type="submit">提交</input>
+			</form>
+			-->
+
 			<form id="addClassify" class="easyui-form" method="post" action="addClassify.action" data-options="novalidate:true">
 				<div style="margin-bottom:20px">
 					<input class="easyui-textbox" name="classifyName" style="width:100%" data-options="label:'分类名:',required:true">
@@ -25,13 +33,18 @@
 				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">提交</a>
 				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">清空</a>
 			</div>
+
 		</div>
 	</div>
-	<script>
+	<script charset="UTF-8">
 		function submitForm(){
 			$('#addClassify').form('submit',{
 				onSubmit:function(){
 					return $(this).form('enableValidation').form('validate');
+				},
+				success:function(data){
+					$('#mainPanle').append(data);
+					//$(location).attr('href','successaaa.jsp');
 				}
 			});
 		}

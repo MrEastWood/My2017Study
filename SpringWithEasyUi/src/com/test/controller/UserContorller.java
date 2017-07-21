@@ -1,5 +1,10 @@
 package com.test.controller;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -26,8 +31,8 @@ public class UserContorller {
 			User user = new User();
 			user.setId("S00000" + i);
 			user.setName("user" + i);
-			user.setAge(10 + i);
-			user.setRemark("remark " + i);
+//			user.setAge(10 + i);
+//			user.setRemark("remark " + i);
 			jsDataGrid.total++;
 			jsDataGrid.rows.add(user);
 		}
@@ -37,18 +42,14 @@ public class UserContorller {
 		System.out.println(str);
 		return str;	
 	}
-	@RequestMapping("/addClassify")
-	public String addClassify(){
-		System.out.println("aaaa");
-		return "forward:/index.html";
+	
+	@RequestMapping(value="/addClassify",method=RequestMethod.POST)
+	@ResponseBody
+	public String addClassify(@ModelAttribute BookClassify bc,HttpSession session){
+		System.out.println("name : " + bc.getClassifyName());
+		System.out.println("descripition : " + bc.getDescription());
+		return "测试";
 	}
-	//@RequestMapping(value="/addClassify",method=RequestMethod.POST)
-//	@RequestMapping("/addClassify")
-//	public String addClassify(@ModelAttribute BookClassify bc,HttpSession session){
-//		System.out.println("name : " + bc.getClassifyName());
-//		System.out.println("descripition : " + bc.getDescription());
-//		return "success.jsp";
-//	}
 
 	@RequestMapping("/Hello")
 	public String Hello(){
