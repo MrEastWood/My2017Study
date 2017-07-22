@@ -43,13 +43,13 @@ public class UserContorller {
 		return str;	
 	}
 	
-	@RequestMapping(value="/addClassify",method=RequestMethod.POST)
-	@ResponseBody
-	public String addClassify(@ModelAttribute BookClassify bc,HttpSession session){
-		System.out.println("name : " + bc.getClassifyName());
-		System.out.println("descripition : " + bc.getDescription());
-		return "测试";
-	}
+//	@RequestMapping(value="/addClassify",method=RequestMethod.POST)
+//	@ResponseBody
+//	public String addClassify(@ModelAttribute BookClassify bc,HttpSession session){
+//		System.out.println("name : " + bc.getClassifyName());
+//		System.out.println("descripition : " + bc.getDescription());
+//		return "测试";
+//	}
 
 	@RequestMapping("/Hello")
 	public String Hello(){

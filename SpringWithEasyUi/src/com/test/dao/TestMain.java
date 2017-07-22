@@ -34,6 +34,7 @@ public class TestMain {
     public void clear() {
         getSession().clear();
     }
+
     @Test
     public void load() {
         Session session = getSession();
@@ -51,8 +52,8 @@ public class TestMain {
         session.beginTransaction();
         
         BookClassify classify = new BookClassify();
-        classify.setClassifyName("aaaa");
-        classify.setDescription("bbbbbbbb");
+        classify.setClassifyName("测试");
+        classify.setDescription("测试1");
         classify.setCreateDate(new Date());
         classify.setLastModifyDate(new Date());
         session.save(classify);

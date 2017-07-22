@@ -45,6 +45,7 @@
 				success:function(data){
 					$('#mainPanle').append(data);
 					//$(location).attr('href','successaaa.jsp');
+					//document.location.reload(true);
 				}
 			});
 		}
