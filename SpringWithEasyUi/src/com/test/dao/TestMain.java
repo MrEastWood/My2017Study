@@ -52,8 +52,10 @@ public class TestMain {
         session.beginTransaction();
         
         BookClassify classify = new BookClassify();
-        classify.setClassifyName("测试");
-        classify.setDescription("测试1");
+
+        classify.setClassifyName("测试分类");
+        classify.setDescription("分类说明1");
+
         classify.setCreateDate(new Date());
         classify.setLastModifyDate(new Date());
         session.save(classify);
