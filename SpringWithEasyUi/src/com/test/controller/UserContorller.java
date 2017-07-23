@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.test.common.JsonDataGrid;
 import com.test.entry.BookClassify;
-import com.test.entry.JsonDataGrid;
 import com.test.entry.User;
 
 @Controller
@@ -37,10 +37,7 @@ public class UserContorller {
 			jsDataGrid.rows.add(user);
 		}
 		
-		Gson gson = new GsonBuilder().create();
-		String str = gson.toJson(jsDataGrid);
-		System.out.println(str);
-		return str;	
+		return jsDataGrid.toString();	
 	}
 	
 //	@RequestMapping(value="/addClassify",method=RequestMethod.POST)

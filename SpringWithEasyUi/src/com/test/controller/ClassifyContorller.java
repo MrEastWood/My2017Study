@@ -1,38 +1,78 @@
 package com.test.controller;
 
-import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.test.common.Pager;
+import com.test.common.ReturnMessage;
 import com.test.entry.BookClassify;
-import com.test.entry.ReturnMessage;
+import com.test.service.ClassifyService;
 
 @Controller
 @RequestMapping(produces = "application/json;charset=UTF-8")
 public class ClassifyContorller {
-
+	
+	@Autowired
+	private ClassifyService classifyService;
+	
 	@RequestMapping(value="/addClassify")
 	@ResponseBody
-	public String addClassify(BookClassify classify) throws UnsupportedEncodingException{
-		//System.out.println(new String("中文".getBytes("UTF-8"),"UTF-8"));
-		System.out.println("name : " + classify.getClassifyName());
-		System.out.println("desc : " + classify.getDescription());
+	public String addClassify(BookClassify classify){
+		System.out.println("--------------开始插入一个分类--------------------");
+		classify.setCreateDate(new Date());
+		classify.setLastModifyDate(new Date());
+		classify.setClassifyID(1);
+		
+		try {
+			classifyService.addClassify(classify);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("---------异常-------------");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		System.out.println("--------------插入分类完成--------------------");
 		ReturnMessage msg = new ReturnMessage();
 		msg.setMessageType("N");
 		msg.setReturnCode("0000");
-		
-		//测试中文的编码类型
-		String s = classify.getDescription();
-		
-		if(s.equals(new String(s.getBytes("UTF-8"),"UTF-8"))){
-			System.out.println("字符编码是utf-8");
-		}else{
-			System.out.println("字符编码不是utf-8");
-		}
-		
 		msg.setMessageData(classify.getDescription());
+		
 		return msg.toString();
 	}
+	
+	@RequestMapping(value="/listClassify")
+	@ResponseBody
+	public String listClassify(){
+		List<BookClassify> classifyList = classifyService.listClassify();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(classifyList);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST,value="/queryClassifyPage")
+	@ResponseBody
+	public String queryClassifyPage(HttpServletRequest request){
+		//获取查询条件
+		String classifyName = request.getParameter("classifyName");
+		//获取分页信息
+		int pageNumber = Integer.valueOf(request.getParameter("page"));
+		int pageSize = Integer.valueOf(request.getParameter("rows"));
+		
+		Pager<BookClassify> classifyPage = classifyService.queryClassifyPage(pageNumber, pageSize, classifyName);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(classifyPage);
+		
+	}
+	
+	
 }

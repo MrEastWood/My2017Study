@@ -2,6 +2,7 @@
 .metadata
 Servers
 RemoteSystemsTempFiles
+.recommenders
 #ignore java jar,class files
 *.jar
 *.class
