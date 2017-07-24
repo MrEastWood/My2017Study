@@ -10,7 +10,7 @@ public class MsgUtil {
 		
 		ReturnMessage msg = new ReturnMessage();
 		
-		msg.setMessageType("E");
+		msg.setSuccess(false);
 		msg.setMessageData(e.getMessage());
 		msg.setReturnCode("S999");
 		if(e instanceof BusException){
@@ -28,7 +28,7 @@ public class MsgUtil {
 		
 		ReturnMessage msg = new ReturnMessage();
 		
-		msg.setMessageType("N");
+		msg.setSuccess(true);
 		msg.setReturnCode("0000");
 		msg.setMessageData(str);
 		

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,16 +22,17 @@ import com.test.entry.BookClassify;
 import com.test.service.ClassifyService;
 
 @Controller
-@RequestMapping(produces = "application/json;charset=UTF-8")
+@RequestMapping(value="/Classify",produces = "application/json;charset=UTF-8")
 public class ClassifyContorller {
 	
 	@Autowired
 	private ClassifyService classifyService;
 	
 	@RequestMapping(value="/addClassify")
-	@ResponseBody
-	public String addClassify(BookClassify classify){
-		System.out.println("--------------开始插入一个分类--------------------");
+	public ModelAndView addClassify(BookClassify classify){
+		
+		ModelAndView modeView = new ModelAndView("../successPage.jsp");
+		
 		classify.setCreateDate(new Date());
 		classify.setLastModifyDate(new Date());
 		classify.setClassifyID(1);
@@ -47,7 +49,9 @@ public class ClassifyContorller {
 			msg = MsgUtil.genNormalMsg(classify.getDescription());
 		}
 		
-		return msg.toString();
+		modeView.addObject("message", msg);
+		
+		return modeView;
 	}
 	
 	@RequestMapping(value="/listClassify")

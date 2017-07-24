@@ -14,7 +14,9 @@ function addNav(data) {
 		var menulist = "";
 		menulist += '<ul>';
 		$.each(sm.menus, function(j, o) {
-			menulist += '<li><div><a ref="' + o.menuid + '" href="' + o.url + '" rel="'
+			//使用内嵌Frame来链接到目标页面
+			//menulist += '<li><div><a ref="' + o.menuid + '" href="' + o.url + '" rel="'
+			menulist += '<li><div><a ref="' + o.menuid + '" href="#" rel="'
 					+ o.url + '" ><span class="icon ' + o.icon
 					+ '" >&nbsp;</span><span class="nav">' + o.menuname
 					+ '</span></a></div></li> ';
@@ -35,12 +37,19 @@ function addNav(data) {
 
 }
 
-// 初始化左侧
+/**
+ * 为每个菜单选项添加悬停效果及点击事件
+ */
 function InitLeftMenu() {
 	
 	hoverMenuItem();
-
+	
 	$('#wnav').on('click','li a', function() {
+		//点击动态产生一个frame
+		var url = $(this).attr("rel");
+		var frame = createFrame(url);
+		$('#mainPanle').html(frame);
+		//增加点击效果
 		$('#wnav li div').removeClass("selected");
 		$(this).parent().addClass("selected");
 	});
@@ -48,7 +57,7 @@ function InitLeftMenu() {
 }
 
 /**
- * 菜单项鼠标Hover
+ * 菜单项鼠标Hover(鼠标悬停)
  */
 function hoverMenuItem() {
 	$(".easyui-accordion").find('a').hover(function() {
@@ -58,7 +67,9 @@ function hoverMenuItem() {
 	});
 }
 
-// 获取左侧导航的图标
+/**
+ * 获取左侧导航的图标
+ */
 function getIcon(menuid) {
 	var icon = 'icon ';
 	$.each(menu, function(j, o) {
@@ -70,4 +81,12 @@ function getIcon(menuid) {
 		});
 	});
 	return icon;
+}
+
+/**
+ * 产生一个内嵌的frame
+ */
+function createFrame(url) {
+	var s = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
+	return s;
 }

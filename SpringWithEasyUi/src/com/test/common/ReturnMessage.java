@@ -8,8 +8,8 @@ public class ReturnMessage {
 	/**
 	 * 返回信息类型 :  N - normal  E - Error
 	 */
-	private String messageType;
-	
+	private boolean success;
+
 	/**
 	 * 返回的信息码，预定长度为4位，信息码为空表示成功
 	 */
@@ -20,12 +20,12 @@ public class ReturnMessage {
 	 */
 	private String messageData;
 	
-	public String getMessageType() {
-		return messageType;
+	public boolean isSuccess() {
+		return success;
 	}
-	
-	public void setMessageType(String messageType) {
-		this.messageType = messageType;
+
+	public void setSuccess(boolean success) {
+		this.success = success;
 	}
 	
 	public String getReturnCode() {

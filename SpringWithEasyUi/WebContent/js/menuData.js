@@ -10,7 +10,7 @@ var menu = [
 	    "menuid" : "111",
 	    "menuname" : "添加分类",
 	    "icon" : "icon-nav",
-	    "url" : "addClassify.jsp"}, 
+	    "url" : "Classify/addClassify.jsp"}, 
 	    {
 	    "menuid" : "112",
 	    "menuname" : "修改分类",
@@ -20,7 +20,7 @@ var menu = [
 		"menuid" : "115",
 		"menuname" : "管理分类",
 		"icon" : "icon-nav",
-		"url" : "modifyClassify.jsp"},
+		"url" : "Classify/modifyClassify.jsp"},
 		{
 		"menuid" : "117",
 		"menuname" : "基础数据14",
