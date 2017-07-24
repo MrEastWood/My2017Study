@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.test.common.BusException;
 import com.test.common.Pager;
 import com.test.dao.BaseDao;
 import com.test.entry.BookClassify;
@@ -22,17 +23,19 @@ public class ClassifyServiceImpl implements ClassifyService {
 	protected BaseDao<BookClassify> classifyDao;
 	
 	@Override
-	public int addClassify(BookClassify classify){
+	public void addClassify(BookClassify classify) throws Exception{
 		// TODO Auto-generated method stub
-		
+		//检查是否已存在同名的类型
+		List<Criterion> cList = new ArrayList<Criterion>();
+		cList.add(Restrictions.eq("classifyName", classify.getClassifyName()));
+		Long count = classifyDao.getRowCount(BookClassify.class, cList);
+		if(count > 0){
+			BusException exception = new BusException("分类名重复");
+			exception.setReturnCode("A001");
+			throw exception;
+		}
+		//插入书籍分类
 		classifyDao.insertRecord(classify);
-//		try {
-//			throw new Exception("测试失败") ;
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			throw e;
-//		}
-		return 0;
 	}
 
 	@Override

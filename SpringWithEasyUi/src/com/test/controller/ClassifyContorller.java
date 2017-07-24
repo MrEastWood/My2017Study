@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.test.common.BusException;
+import com.test.common.MsgUtil;
 import com.test.common.Pager;
 import com.test.common.ReturnMessage;
 import com.test.entry.BookClassify;
@@ -32,20 +34,18 @@ public class ClassifyContorller {
 		classify.setCreateDate(new Date());
 		classify.setLastModifyDate(new Date());
 		classify.setClassifyID(1);
+		ReturnMessage msg = null;
 		
 		try {
 			classifyService.addClassify(classify);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("---------异常-------------");
-			System.out.println(e.getMessage());
-			e.printStackTrace();
+			// TODO Auto-generated catch block	
+			msg = MsgUtil.genErrMsg(e);
 		}
-		System.out.println("--------------插入分类完成--------------------");
-		ReturnMessage msg = new ReturnMessage();
-		msg.setMessageType("N");
-		msg.setReturnCode("0000");
-		msg.setMessageData(classify.getDescription());
+		
+		if(msg == null){
+			msg = MsgUtil.genNormalMsg(classify.getDescription());
+		}
 		
 		return msg.toString();
 	}
@@ -73,6 +73,5 @@ public class ClassifyContorller {
 		return gson.toJson(classifyPage);
 		
 	}
-	
 	
 }
