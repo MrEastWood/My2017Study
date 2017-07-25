@@ -15,7 +15,7 @@ public class BookClassify {
 	
 	@Id  
     @GeneratedValue(strategy = GenerationType.AUTO) 
-	private int classifyID;
+	private int classifyId;
 	
 	@Column(length=100)
 	private String classifyName;
@@ -29,11 +29,11 @@ public class BookClassify {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastModifyDate;
 	
-	public int getClassifyID() {
-		return classifyID;
+	public int getClassifyId() {
+		return classifyId;
 	}
-	public void setClassifyID(int classifyID) {
-		this.classifyID = classifyID;
+	public void setClassifyId(int classifyId) {
+		this.classifyId = classifyId;
 	}
 	
 	public String getClassifyName() {

@@ -28,13 +28,16 @@ public class ClassifyContorller {
 	@Autowired
 	private ClassifyService classifyService;
 	
+	/**
+	 * 添加分类
+	 * @param classify
+	 * @return
+	 */
 	@RequestMapping(value="/addClassify")
 	public ModelAndView addClassify(BookClassify classify){
 		
 		ModelAndView modeView = new ModelAndView();
-		classify.setCreateDate(new Date());
-		classify.setLastModifyDate(new Date());
-		classify.setClassifyID(1);
+		
 		ReturnMessage msg = null;
 		
 		try {
@@ -55,6 +58,10 @@ public class ClassifyContorller {
 		return modeView;
 	}
 	
+	/**
+	 * 查询所有的分类
+	 * @return
+	 */
 	@RequestMapping(value="/listClassify")
 	@ResponseBody
 	public String listClassify(){
@@ -63,6 +70,11 @@ public class ClassifyContorller {
 		return gson.toJson(classifyList);
 	}
 	
+	/**
+	 * 分页查询分类
+	 * @param request
+	 * @return JSON格式的分页数据
+	 */
 	@RequestMapping(method=RequestMethod.POST,value="/queryClassifyPage")
 	@ResponseBody
 	public String queryClassifyPage(HttpServletRequest request){
@@ -79,4 +91,43 @@ public class ClassifyContorller {
 		
 	}
 	
+	/**
+	 * 修改分类
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(method=RequestMethod.POST,value="/modifyClassify")
+	@ResponseBody
+	public String modifyClassify(BookClassify classify){
+		
+		ReturnMessage msg = MsgUtil.genNormalMsg("修改分类成功");
+		try {
+			classifyService.modifyClassify(classify);
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = MsgUtil.genErrMsg(e);
+		}
+		
+		return msg.toString();
+	}
+	
+	/**
+	 * 删除分类
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/deleteClassify")
+	@ResponseBody
+	public String deleteClassify(BookClassify classify){
+		
+		ReturnMessage msg = MsgUtil.genNormalMsg("删除分类成功");
+		try {
+			classifyService.deleteClassify(classify);
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = MsgUtil.genErrMsg(e);
+		}
+		
+		return msg.toString();
+	}
 }

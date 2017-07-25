@@ -1,5 +1,6 @@
 package com.test.dao;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -131,18 +132,20 @@ public abstract class BaseDao<T> {
 	 *            一个对id赋值的对象
 	 * @return 唯一符合条件的记录
 	 */
-	public T getRecordById(T t) {
+	public T getRecordById(Class c, Serializable id) {
 		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		return (T)session.get(c, id);
 	}
 
 	/**
 	 * @param t
 	 *            一个赋好值的对象
 	 */
-	public int modifyRecord(T t) {
+	public void modifyRecord(T t) {
 		// TODO Auto-generated method stub
-		return 0;
+		Session session = sessionFactory.getCurrentSession();
+		session.update(t);
 	}
 
 	/**

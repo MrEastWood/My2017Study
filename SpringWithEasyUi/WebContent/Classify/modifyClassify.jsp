@@ -12,7 +12,7 @@
 	<base href="<%=basePath%>">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="css/easyui.css">
-	<link rel="stylesheet" type="text/css" href="css/default.css" />
+	<link rel="stylesheet" type="text/css" href="css/icon.css" />
 	
 	<script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
@@ -31,13 +31,14 @@
 			<table id="classifyGrid"></table>
 		</div>
   		<!-- 编辑窗口 -->
-		<div id="w_edit" class="easyui-window" title="编辑分类" data-options="modal: true,closed:true" style="width:500px;height:200px;padding:10px;">
+		<div id="w_edit" class="easyui-window" title="编辑分类" data-options="modal: true,closed:true" style="width:500px;height:250px;padding:10px;">
 			<form id="editClassify" class="easyui-form" method="post" data-options="novalidate:true">
+				<input type="hidden" id="cID" name="classifyId">
 				<div style="margin-bottom:20px">
-					<input class="easyui-textbox" name="classifyName" style="width:100%" data-options="label:'分类名:',required:true">
+					<input class="easyui-textbox" id="cName" name="classifyName" style="width:80%" data-options="label:'分类名:',required:true">
 				</div>
 				<div style="margin-bottom:20px">
-					<input class="easyui-textbox" name="description" style="width:100%;height:60px" data-options="label:'分类说明:',multiline:true">
+					<input class="easyui-textbox" id="cDesc" name="description" style="width:80%;height:60px" data-options="label:'分类说明:',multiline:true">
 				</div>
 			</form>
 			<div style="text-align:center;padding:5px 0">
@@ -59,6 +60,7 @@
 			url: '',
 			method: 'post',
 			rownumbers: true,
+			singleSelect: true,
 			queryParams: { classifyName : "" },
 			
 			toolbar:[{
@@ -79,6 +81,7 @@
 				{ field: 'lastModifyDate', title: '最后修改日期', width: '19%', align: 'left' },
 			]],
 			pagination: true,
+			pageSize: 20,
 			onBeforeLoad: function (param) {
 				param.classifyName = $("#classifyName").val();
 		    }
@@ -104,12 +107,63 @@
 			//获取选中的分类 
 			var row = $("#classifyGrid").datagrid("getSelected");
 			if(!row){
-				alert("请先选中一条记录");
+				$.messager.alert("提示","请选择一条记录",'info');
 			}else{
+				//alert(row.classifyId + row.classifyName + row.description);
+				$('#cID').val(row.classifyId)
+				$('#cName').textbox('setValue',row.classifyName);
+				$('#cDesc').textbox('setValue',row.description);
 				$("#w_edit").window("open");
-				var cid = row.classifyId ;
-				$("#editClassify").form("load","Classify/queryClassifyByid.do?classifyId=" + cid)
 			}
+		};
+		//提交修改表单
+		function submitForm(){
+			// 以ajax方式提交表达
+			$('#editClassify').form('submit',{
+				url: "Classify/modifyClassify.do",
+				onSubmit:function(){
+					return $(this).form('enableValidation').form('validate');
+				},
+				success:function(data){
+					//将返回字符串转换为JSON对象
+					try{
+						var msg = JSON.parse(data);
+						if(msg.success){
+							$.messager.alert("修改成功",msg.messageData,'info');
+							$("#w_edit").window("close");
+							$("#classifyGrid").datagrid("reload");
+						}else{
+							$.messager.alert("修改失败",msg.messageData,'error');
+						}
+					}catch(e){
+						$.messager.alert("修改失败","未知异常，修改分类失败",'error');
+					}
+				}
+
+			})
+		};
+		//删除分类
+		function removeClassify(){
+			//获取选中的分类 
+			var row = $("#classifyGrid").datagrid("getSelected");
+			if(!row){
+				$.messager.alert("提示","请选择一条记录",'info');
+			}else{
+				$.messager.confirm('确认','您确认想要删除记录吗？分类名  : ' + row.classifyName ,function(r){    
+				    if(r){    
+				        $.getJSON("Classify/deleteClassify.do",{classifyId : row.classifyId},function(msg){
+				        	$.messager.alert("删除结果",msg.messageData);
+				        	if(msg.success){
+				        		$("#classifyGrid").datagrid("reload");
+				        	}
+				        }) 
+				    }    
+				});  
+			}
+		};
+		//清除form栏位值
+		function clearForm(){
+			$('#editClassify').form('clear');
 		}
 	</script>
 </body>
