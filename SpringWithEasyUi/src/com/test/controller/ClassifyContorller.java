@@ -31,8 +31,7 @@ public class ClassifyContorller {
 	@RequestMapping(value="/addClassify")
 	public ModelAndView addClassify(BookClassify classify){
 		
-		ModelAndView modeView = new ModelAndView("../successPage.jsp");
-		
+		ModelAndView modeView = new ModelAndView();
 		classify.setCreateDate(new Date());
 		classify.setLastModifyDate(new Date());
 		classify.setClassifyID(1);
@@ -43,10 +42,12 @@ public class ClassifyContorller {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block	
 			msg = MsgUtil.genErrMsg(e);
+			modeView.setViewName("../errorPage.jsp");
 		}
 		
 		if(msg == null){
 			msg = MsgUtil.genNormalMsg(classify.getDescription());
+			modeView.setViewName("../successPage.jsp");
 		}
 		
 		modeView.addObject("message", msg);

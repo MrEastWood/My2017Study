@@ -1,22 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<base href="<%=basePath%>">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="../css/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../css/icon.css">
-	<link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/default.css" />
 	
-	<script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
     
 	<title>新增分类</title>
 </head>
 <body>
 	<div id="mainPanle" style="background: #eee; overflow-y:hidden">
 		<div class="easyui-panel" title="添加分类" style="width:100%;max-width:400px;padding:30px 60px;">
-			<form id="addClassify" class="easyui-form" action="addClassify.action" method="post" data-options="novalidate:true">
+			<form id="addClassify" class="easyui-form" action="Classify/addClassify.action" method="post" data-options="novalidate:true">
 				<div style="margin-bottom:20px">
 					<input class="easyui-textbox" name="classifyName" style="width:100%" data-options="label:'分类名:',required:true">
 				</div>
@@ -57,7 +64,7 @@
 			*/
 			//不使用ajax提交表单
 			$('#addClassify').form({
-				url: "addClassify.action" ,
+				url: "Classify/addClassify.action" ,
 				ajax: false
 			});
 			
