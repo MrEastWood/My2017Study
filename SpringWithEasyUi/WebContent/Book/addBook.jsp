@@ -22,28 +22,31 @@
 </head>
 <body>
 	<div id="mainPanle" style="background: #eee; overflow-y:hidden">
-		<div class="easyui-panel" title="添加书籍" style="width:100%;max-width:400px;padding:30px 60px;">
-			<form id="addClassify" class="easyui-form" action="Book/addBook.action" method="post" data-options="novalidate:true">
-				<div style="margin-bottom:20px">
+		<div class="easyui-panel" title="添加书籍" style="width:100%;max-width:600px;padding:30px 60px;">
+			<form id="addClassify" class="easyui-form" action="Book/addBook.action" method="post" enctype="multipart/form-data" data-options="novalidate:true">
+				<div style="margin-bottom:10px">
+					<input class="easyui-textbox" name="bookClassify" style="width:100%" data-options="label:'书籍类别:',required:true">
+				</div>
+				<div style="margin-bottom:10px">
 					<input class="easyui-textbox" name="bookId" style="width:100%" data-options="label:'书籍编号:',required:true">
 				</div>
-				<div style="margin-bottom:20px">
-					<input class="easyui-textbox" name="bookId" style="width:100%" data-options="label:'书籍编号:',required:true">
+				<div style="margin-bottom:10px">
+					<input class="easyui-textbox" name="bookName" style="width:100%" data-options="label:'书名:',required:true">
 				</div>
-				<div style="margin-bottom:20px">
-					<input class="easyui-textbox" name="bookName" style="width:100%;height:60px" data-options="label:'书名:',required:true">
-				</div>
-				<div style="margin-bottom:20px">
+				<div style="margin-bottom:10px">
 					<input class="easyui-textbox" name="bookDescription" style="width:100%;height:60px" data-options="label:'简述:',multiline:true">
 				</div>
-				<div style="margin-bottom:20px">
-					<input class="easyui-textbox" name="bookPublish" style="width:100%;height:60px" data-options="label:'出版商:'">
+				<div style="margin-bottom:10px">
+					<input class="easyui-textbox" name="bookPublish" style="width:100%" data-options="label:'出版商:'">
 				</div>
-				<div style="margin-bottom:20px">
-					<input class="easyui-textbox" name="bookAuthor" style="width:100%;height:60px" data-options="label:'作者:'">	
+				<div style="margin-bottom:10px">
+					<input class="easyui-textbox" name="bookAuthor" style="width:100%" data-options="label:'作者:'">	
 				</div>
-				<div style="margin-bottom:20px">
-					<input class="easyui-textbox" name="bookPrice" style="width:100%;height:60px" data-options="label:'价格:'">	
+				<div style="margin-bottom:10px">
+					<input class="easyui-numberbox" name="bookPrice" labelPosition="left" precision="2" style="width:60%" data-options="label:'价格:'">	
+				</div>
+				<div style="margin-bottom:10px">
+					<input class="easyui-filebox" name="bookCover" data-options="prompt:'请选择...', label:'封面图片',buttonText:'浏览',accept:['image/jpeg','image/png']" style="width:80%">
 				</div>
 			</form>
 			<div style="text-align:center;padding:5px 0">
