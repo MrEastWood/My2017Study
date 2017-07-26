@@ -104,7 +104,6 @@ public class ClassifyContorller {
 		try {
 			classifyService.modifyClassify(classify);
 		} catch (Exception e) {
-			e.printStackTrace();
 			msg = MsgUtil.genErrMsg(e);
 		}
 		

@@ -3,50 +3,34 @@
  */
 var menu = [
     {
-	"menuid"   : "11",
+	"menuid"   : "10",
 	"icon"     : "icon-sys",
 	"menuname" : "分类管理",
 	"menus"    : [{
-	    "menuid" : "111",
+	    "menuid" : "101",
 	    "menuname" : "添加分类",
 	    "icon" : "icon-nav",
 	    "url" : "Classify/addClassify.jsp"}, 
 	    {
-	    "menuid" : "112",
-	    "menuname" : "修改分类",
-	    "icon" : "icon-nav",
-	    "url" : "#"}, 
-	    {
-		"menuid" : "115",
+		"menuid" : "102",
 		"menuname" : "管理分类",
 		"icon" : "icon-nav",
-		"url" : "Classify/modifyClassify.jsp"},
-		{
-		"menuid" : "117",
-		"menuname" : "基础数据14",
-		"icon" : "icon-nav",
-		"url" : "#"}, 
-		{
-		"menuid" : "119",
-		"menuname" : "基础数据15",
-		"icon" : "icon-nav",
-		"url" : "index.html"
-		}]
+		"url" : "Classify/manageClassify.jsp"}]
     },
 	{
-	"menuid"   : "20",
+	"menuid"   : "21",
 	"icon"     : "icon-sys",
-	"menuname" : "测试一",
+	"menuname" : "书籍管理",
 	"menus"    : [{
 		"menuid" : "211",
-		"menuname" : "测试一11",
+		"menuname" : "添加书籍",
 		"icon" : "icon-nav",
-		"url" : "#"}, 
+		"url" : "Book/addBook.jsp"}, 
 		{
-		"menuid" : "213",
-		"menuname" : "测试一22",
+		"menuid" : "212",
+		"menuname" : "管理书籍",
 		"icon" : "icon-nav",
-		"url" : "#"
+		"url" : "Book/manageBook.jsp"
 		}]
 	}
 ];
