@@ -53,7 +53,7 @@ public class BookContorller {
 			modeView.addObject("message",msg);
 			return modeView;
 		}
-		System.out.println("bbbb");
+
 		//保存封面图片操作
         if (!file.isEmpty()) {  
             try {  
@@ -72,7 +72,7 @@ public class BookContorller {
     			return modeView;
             }  
         } 
-        System.out.println("cccc");
+
         //插入新增书籍
         try {
 			bookService.addBook(b);
@@ -82,7 +82,7 @@ public class BookContorller {
 			modeView.addObject("message",msg);
 			return modeView;
 		}
-        System.out.println("dddd");
+        
 		modeView.setViewName("../successPage.jsp");
 		msg = MsgUtil.genNormalMsg(b.getBookName());
 		System.out.println(msg);

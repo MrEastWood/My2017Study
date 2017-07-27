@@ -36,6 +36,7 @@ public class Book implements Serializable {
 	private String bookImageUrl;
 
 	@Column(length = 1)
+	// N - 正常     B - 借出中    L - 丢失   D - 已下架      F - 冻结 
 	private String bookStatus;
 
 	@ManyToOne(cascade = CascadeType.REFRESH)

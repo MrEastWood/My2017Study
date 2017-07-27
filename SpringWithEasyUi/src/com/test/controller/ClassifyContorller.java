@@ -46,15 +46,13 @@ public class ClassifyContorller {
 			// TODO Auto-generated catch block	
 			msg = MsgUtil.genErrMsg(e);
 			modeView.setViewName("../errorPage.jsp");
+			modeView.addObject("message", msg);
+			return modeView;
 		}
 		
-		if(msg == null){
-			msg = MsgUtil.genNormalMsg(classify.getDescription());
-			modeView.setViewName("../successPage.jsp");
-		}
-		
+		msg = MsgUtil.genNormalMsg("添加分类成功!分类名 " + classify.getDescription());
+		modeView.setViewName("../successPage.jsp");
 		modeView.addObject("message", msg);
-		
 		return modeView;
 	}
 	
