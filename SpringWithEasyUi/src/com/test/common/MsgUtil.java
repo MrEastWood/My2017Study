@@ -1,5 +1,7 @@
 package com.test.common;
 
+import org.springframework.web.servlet.ModelAndView;
+
 public class MsgUtil {
 	
 	/**

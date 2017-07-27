@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.google.gson.annotations.Expose;
+
 
 @Entity
 public class BookClassify implements Serializable {
@@ -27,21 +29,26 @@ public class BookClassify implements Serializable {
 
 	@Id  
     @GeneratedValue(strategy = GenerationType.AUTO) 
+	@Expose
 	private int classifyId;
 	
+	@Expose
 	@Column(length=100)
 	private String classifyName;
 	
+	@Expose
 	@Column(length=1024)
 	private String description;
 	
+	@Expose
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
 	
+	@Expose
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastModifyDate;
 	
-	@OneToMany(cascade = CascadeType.REFRESH,fetch = FetchType.LAZY,mappedBy = "bookClassify")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "bookClassify")
 	private Set<Book> bookSet = new HashSet<Book>();
 	
 	public int getClassifyId() {

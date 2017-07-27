@@ -25,7 +25,7 @@
 		<div class="easyui-panel" title="添加书籍" style="width:100%;max-width:600px;padding:30px 60px;">
 			<form id="addClassify" class="easyui-form" action="Book/addBook.action" method="post" enctype="multipart/form-data" data-options="novalidate:true">
 				<div style="margin-bottom:10px">
-					<input class="easyui-textbox" name="bookClassify" style="width:100%" data-options="label:'书籍类别:',required:true">
+					<input id="cls" name="bookClassify" style="width:80%">
 				</div>
 				<div style="margin-bottom:10px">
 					<input class="easyui-textbox" name="bookId" style="width:100%" data-options="label:'书籍编号:',required:true">
@@ -57,6 +57,18 @@
 	</div>
 	
 	<script charset="UTF-8">
+		$("#cls").combobox({
+			url: 'Classify/listClassify.do',
+			valueField:'classifyId',    
+		    textField:'classifyName',
+		    label:'书籍分类:',
+		    required:true,
+		    filter: function(q, row){
+				var opts = $(this).combobox('options');
+				return row[opts.textField].indexOf(q) >= 0;
+			}
+		});
+		
 		function submitForm(){
 			//不使用ajax提交表单
 			$('#addClassify').form({

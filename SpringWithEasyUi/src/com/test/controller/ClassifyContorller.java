@@ -66,7 +66,7 @@ public class ClassifyContorller {
 	@ResponseBody
 	public String listClassify(){
 		List<BookClassify> classifyList = classifyService.listClassify();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(classifyList);
 	}
 	

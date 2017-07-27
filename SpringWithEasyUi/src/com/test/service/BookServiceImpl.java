@@ -23,13 +23,27 @@ public class BookServiceImpl implements BookService {
 
 	@Autowired
 	protected BaseDao<Book> bookDao;
+	@Autowired
+	protected BaseDao<BookClassify> classifyDao;
 
 	@Override
 	public void addBook(Book book) throws Exception {
 
 		// 检查是否已存在重复的id
-		// to by add
+		Book old = bookDao.getRecordById(Book.class, book.getBookId());
+		if(old != null){
+			BusException e = new BusException("书籍编号重复");
+			e.setReturnCode("B001");
+			throw e;
+		}
+		
+		// 检查分类是否存在
+		BookClassify cls = classifyDao.getRecordById(BookClassify.class, book.getBookClassify().getClassifyId());
+		if(cls == null){
+			BusException e = new BusException("书籍分类不存在");
+			e.setReturnCode("B002");
+			throw e;
+		}
 		bookDao.insertRecord(book);
-
 	}
 }
