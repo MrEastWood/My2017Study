@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.test.firstclass">
+	<class name="MaxId" table="maxid">
+		<!--  联合主键的方法
+		<composite-id>
+			<key-property name="idType" column="idtype" type="string"></key-property>
+			<key-property name="idPrefix" column="idprefix" type="string"></key-property>
+		</composite-id>
+		-->
+		
+		<id name="idType" column="idtype" type="string"></id>
+		<property name="idPrefix" column="idprefix" type="string"/>
+
+		<property name="curValue" />
+	</class>
+</hibernate-mapping>

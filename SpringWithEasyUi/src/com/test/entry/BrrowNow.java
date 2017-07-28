@@ -4,11 +4,13 @@ import java.util.Date;
 
 public class BrrowNow {
 	
-	private long journal;
+	private String journal;
 	private int readerId;
 	private String bookId;
 	
 	private Date brrowDate;
-	private Date 
+	private Date expDate;
+	
+	private Date txnDate;
 	
 }
