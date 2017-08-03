@@ -9,38 +9,49 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Expose
 	private String bookId;
 
 	@Column(length = 100, nullable = false)
+	@Expose
 	private String bookName;
 
 	@Column(length = 1024)
+	@Expose
 	private String bookDescription;
 
 	@Column(length = 100)
+	@Expose
 	private String bookPublish;
 
 	@Column(length = 50)
+	@Expose
 	private String bookAuthor;
 
 	@Column
+	@Expose
 	private float bookPrice;
 
 	@Column(length = 100)
+	@Expose
 	private String bookImageUrl;
 
 	@Column(length = 1)
-	// N - 正常     B - 借出中    L - 丢失   D - 已下架      F - 冻结 
+	// N - 可借     B - 借出中    L - 丢失   D - 已下架      F - 冻结 
+	@Expose
 	private String bookStatus;
 
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "classifyId")
+	@Expose
 	private BookClassify bookClassify;
 
 	public String getBookId() {

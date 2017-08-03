@@ -84,7 +84,7 @@ public class ClassifyContorller {
 		
 		Pager<BookClassify> classifyPage = classifyService.queryClassifyPage(pageNumber, pageSize, classifyName);
 		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(classifyPage);
 		
 	}

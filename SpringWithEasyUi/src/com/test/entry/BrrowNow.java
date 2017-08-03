@@ -5,6 +5,7 @@ import java.util.Date;
 public class BrrowNow {
 	
 	private String journal;
+	
 	private int readerId;
 	private String bookId;
 	

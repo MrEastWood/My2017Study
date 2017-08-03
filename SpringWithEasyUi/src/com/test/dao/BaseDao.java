@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.LockOptions;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -136,6 +137,17 @@ public abstract class BaseDao<T> {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		return (T)session.get(c, id);
+	}
+	
+	/**
+	 * @param t
+	 *            一个对id赋值的对象
+	 * @return 唯一符合条件的记录
+	 */
+	public T getRecordByIdUpd(Class c, Serializable id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return (T)session.get(c, id,LockOptions.UPGRADE);
 	}
 
 	/**

@@ -2,6 +2,8 @@ package com.test.common;
 
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * @author Administrator
  * 为了方便分页查询的数据返回，封装一个Pager类型，方便一次性将分页查询的数据返回
@@ -9,12 +11,16 @@ import java.util.List;
  */
 public class Pager<T> {
 	//每页记录数 - 为了适应jquery的datagrid，名称固定
+	@Expose
 	private int pageSize;
 	//当前页 - 为了适应jquery的datagrid，名称固定
+	@Expose
 	private int pageNumber;
 	//记录总数 - 为了适应jquery的datagrid，名称固定
+	@Expose
 	private Long total;
 	//记录数据- 为了适应jquery的datagrid，名称固定
+	@Expose
 	private List<T> rows;
 	
 	public int getPageSize() {
