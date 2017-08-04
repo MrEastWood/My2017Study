@@ -50,7 +50,7 @@
 					<img id="coverimg" src="" alt="img" width="90px" height="120px" style="float: right;">
 				</div>
 			</form>
-			<div style="text-align:center;padding:5px 0;margin-top: 100px">
+			<div style="text-align:center;padding:5px 0;margin-top: 100px;">
 				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">提交</a>
 				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">清空</a>
 			</div>
