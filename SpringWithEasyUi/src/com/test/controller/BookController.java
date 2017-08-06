@@ -27,7 +27,7 @@ import com.test.service.BookService;
 
 @Controller
 @RequestMapping(value="/Book",produces = "application/json;charset=UTF-8")
-public class BookContorller {
+public class BookController {
 	//@Autowired
 	//public HttpServletRequest request;
 	@Autowired
@@ -133,5 +133,71 @@ public class BookContorller {
 		return gson.toJson(book);
 		
 	}
-
+	
+	@RequestMapping(value="/editBook")
+	@ResponseBody
+	public String editBook(@RequestParam("bookCover") MultipartFile file,HttpServletRequest request){
+		ReturnMessage msg = null;
+		Book book = null;
+		//获取输入的数据
+		try{
+			book = (Book) HttpUtil.getRequestObject(Book.class, request);
+			BookClassify c = new BookClassify();
+			int classifyId = Integer.valueOf(request.getParameter("bookClassify"));
+			c.setClassifyId(classifyId);
+			book.setBookClassify(c);
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+			System.out.println(gson.toJson(book));
+		}catch(Exception e){
+			msg = MsgUtil.genErrMsg(e);
+			return msg.toString();
+		}
+		
+		//保存图片
+		if (!file.isEmpty()) {  
+            try {  
+                // 文件保存路径  
+            	String path = "upload/bookCover/" + book.getBookId() + file.getOriginalFilename();
+                String filePath = request.getSession().getServletContext().getRealPath("/") + path;
+                // 转存文件  
+                System.out.println(filePath);
+                file.transferTo(new File(filePath));  
+                book.setBookImageUrl(path);
+            } catch (Exception e) {  
+            	msg = MsgUtil.genErrMsg(e);
+    			return msg.toString();
+            }  
+        } 
+		
+		//保存书籍
+		try {
+			bookService.editBook(book);
+		} catch (Exception e) {
+			msg = MsgUtil.genErrMsg(e);
+			return msg.toString();
+		}
+		
+		msg = MsgUtil.genNormalMsg("编辑书籍修改成功");
+		return msg.toString();
+	}
+	
+	/**
+	 * 删除书籍
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/deleteBook")
+	@ResponseBody
+	public String deleteClassify(Book book){
+		
+		ReturnMessage msg = MsgUtil.genNormalMsg("删除分类成功");
+		try {
+			bookService.deleteBook(book);
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = MsgUtil.genErrMsg(e);
+		}
+		
+		return msg.toString();
+	}
 }

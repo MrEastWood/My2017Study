@@ -109,4 +109,37 @@ public class BookServiceImpl implements BookService {
 		Book book = bookDao.getRecordById(Book.class, id);
 		return book;
 	}
+
+	@Override
+	public void editBook(Book book) throws Exception {
+		Book old = bookDao.getRecordByIdUpd(Book.class, book.getBookId());
+		if(old == null){
+			BusException e = new BusException("需要编辑的记录不存在");
+			e.setReturnCode("B002");
+			throw e;
+		}
+		old.setBookName(book.getBookName());
+		old.setBookClassify(book.getBookClassify());
+		old.setBookDescription(book.getBookDescription());
+		old.setBookPublish(book.getBookPublish());
+		old.setBookAuthor(book.getBookAuthor());
+		old.setBookPrice(book.getBookPrice());
+		String url = book.getBookImageUrl();
+		if(url != null && !url.trim().isEmpty()){
+			old.setBookImageUrl(url);
+		}
+		bookDao.modifyRecord(old);
+	}
+
+	@Override
+	public void deleteBook(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		Book old = bookDao.getRecordById(Book.class, book.getBookId());
+		if(old == null){
+			BusException e = new BusException("需要删除的记录不存在");
+			e.setReturnCode("B003");
+			throw e;
+		}
+		bookDao.deleteRecordById(old);
+	}
 }

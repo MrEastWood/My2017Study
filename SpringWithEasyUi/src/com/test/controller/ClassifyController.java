@@ -23,7 +23,7 @@ import com.test.service.ClassifyService;
 
 @Controller
 @RequestMapping(value="/Classify",produces = "application/json;charset=UTF-8")
-public class ClassifyContorller {
+public class ClassifyController {
 	
 	@Autowired
 	private ClassifyService classifyService;

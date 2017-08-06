@@ -32,5 +32,49 @@ var menu = [
 		"icon" : "icon-nav",
 		"url" : "Book/manageBook.jsp"
 		}]
+	},
+	{
+		"menuid"   : "31",
+		"icon"     : "icon-sys",
+		"menuname" : "用户管理",
+		"menus"    : [{
+			"menuid" : "311",
+			"menuname" : "添加用户",
+			"icon" : "icon-nav",
+			"url" : "Reader/addReader.jsp"}, 
+			{
+			"menuid" : "312",
+			"menuname" : "管理用户",
+			"icon" : "icon-nav",
+			"url" : "Reader/manageReader.jsp"
+			}]
+	},
+	{
+		"menuid"   : "41",
+		"icon"     : "icon-sys",
+		"menuname" : "借书还书",
+		"menus"    : [{
+			"menuid" : "411",
+			"menuname" : "借书",
+			"icon" : "icon-nav",
+			"url" : "Brrow/BrrowBook.jsp"}, 
+			{
+			"menuid" : "412",
+			"menuname" : "还书",
+			"icon" : "icon-nav",
+			"url" : "Brrow/returnBook.jsp"
+			},
+			{
+			"menuid" : "413",
+			"menuname" : "已借书籍管理",
+			"icon" : "icon-nav",
+			"url" : "Brrow/brrowedBook.jsp"
+			},
+			{
+			"menuid" : "414",
+			"menuname" : "借还记录管理",
+			"icon" : "icon-nav",
+			"url" : "Brrow/brrowReturnRec.jsp"
+			}]
 	}
 ];

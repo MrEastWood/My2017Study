@@ -15,7 +15,8 @@ public interface BookService {
 	public Pager<Book> queryBookPage(int pageNumber,int pageSize,Map<String,String> parms);
 	
 	public Book loadBookForm(String id);
-	//public void modifyClassify(Book book) throws Exception ;
 	
-	//public void deleteClassify(Book book);
+	public void editBook(Book book) throws Exception ;
+	
+	public void deleteBook(Book book)throws Exception ;
 }

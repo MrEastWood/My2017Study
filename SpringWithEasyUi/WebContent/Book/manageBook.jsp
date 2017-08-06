@@ -62,7 +62,7 @@
 					<input id="cls" name="bookClassify" style="width:80%">
 				</div>
 				<div style="margin-bottom:10px">
-					<input class="easyui-textbox" name="bookId" style="width:80%" data-options="label:'书籍编号:',required:true">
+					<input class="easyui-textbox" name="bookId" style="width:80%" data-options="label:'书籍编号:',required:true, readonly:true">
 				</div>
 				<div style="margin-bottom:10px">
 					<input class="easyui-textbox" name="bookName" style="width:80%" data-options="label:'书名:',required:true">
@@ -151,7 +151,7 @@
 				{ field: 'description', title: '操作', width: '40%', align: 'left',
 					formatter: function(value,row,index){
 						return '<a href="javascript:void(0)" onclick="modifyBook(\'' + row.bookId +'\')">详情/编辑</a>' + '&nbsp&nbsp&nbsp&nbsp' + 
-							   '<a href="javascript:void(0)" onclick="deleteBook("' + row.bookId +'")">删除</a>' ;
+							   '<a href="javascript:void(0)" onclick="deleteBook(\'' + row.bookId +'\')">删除</a>' ;
 					}
 				}
 			]],
@@ -229,6 +229,48 @@
 				}
 			});
 			
+		}
+		//清空编辑书籍表单
+		function clearEdit(){
+			$('#editBook').form('clear');
+		}
+		//提交编辑书籍表单
+		function submitEdit(){
+			// 以ajax方式提交表达
+			$('#editBook').form('submit',{
+				url: "Book/editBook.do",
+				onSubmit:function(){
+					return $(this).form('enableValidation').form('validate');
+				},
+				success:function(data){
+					//将返回字符串转换为JSON对象
+					try{
+						var msg = JSON.parse(data);
+						if(msg.success){
+							$.messager.alert("修改成功",msg.messageData,'info');
+							$("#w_edit").window("close");
+							$("#bookGrid").datagrid("reload");
+						}else{
+							$.messager.alert("修改失败",msg.messageData,'error');
+						}
+					}catch(e){
+						$.messager.alert("修改失败","未知异常，修改分类失败",'error');
+					}
+				}
+			})
+		};
+		//删除书籍
+		function deleteBook(id){
+			$.messager.confirm('确认','您确认想要删除记录吗？书籍编号  : ' + id ,function(r){    
+			    if(r){    
+			        $.getJSON("Book/deleteBook.do",{bookId : id},function(msg){
+			        	$.messager.alert("删除结果",msg.messageData);
+			        	if(msg.success){
+			        		$("#bookGrid").datagrid("reload");
+			        	}
+			        }) 
+			    }    
+			}); 
 		}
 	</script>
 </body>
