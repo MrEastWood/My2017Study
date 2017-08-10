@@ -57,7 +57,7 @@ var menu = [
 			"menuid" : "411",
 			"menuname" : "借书",
 			"icon" : "icon-nav",
-			"url" : "Brrow/BrrowBook.jsp"}, 
+			"url" : "Brrow/brrowBook.jsp"}, 
 			{
 			"menuid" : "412",
 			"menuname" : "还书",

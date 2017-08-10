@@ -50,4 +50,16 @@ public class ReaderController {
 		return msg.toString();
 	}
 	
+	@RequestMapping(value="/findById")
+	@ResponseBody
+	public String findByid(String readerId){
+		ReturnMessage msg = null;
+		try{
+			Reader reader = readerService.findById(readerId);
+			msg = MsgUtil.genNormalMsg(reader);
+		}catch(Exception e){
+			msg = MsgUtil.genErrMsg(e);
+		}
+		return msg.toString();
+	}
 }

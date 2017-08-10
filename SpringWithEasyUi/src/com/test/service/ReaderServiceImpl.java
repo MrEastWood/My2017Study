@@ -73,4 +73,17 @@ public class ReaderServiceImpl implements ReaderService {
 
 	}
 
+	@Override
+	public Reader findById(String readerId) throws Exception {
+		// TODO Auto-generated method stub
+		
+		Reader reader = readerDao.getRecordById(Reader.class,readerId);
+		if(reader == null){
+			BusException e = new BusException("用户不存在");
+			e.setReturnCode("D004");
+			throw e;
+		}
+		return reader;
+	}
+
 }

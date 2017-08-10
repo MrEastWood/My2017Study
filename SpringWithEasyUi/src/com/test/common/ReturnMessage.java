@@ -18,7 +18,7 @@ public class ReturnMessage {
 	/**
 	 * 返回的错误信息，只有错误时才返回
 	 */
-	private String messageData;
+	private Object messageData;
 	
 	public boolean isSuccess() {
 		return success;
@@ -36,12 +36,12 @@ public class ReturnMessage {
 		this.returnCode = returnCode;
 	}
 	
-	public String getMessageData() {
+	public Object getMessageData() {
 		return messageData;
 	}
 	
 	
-	public void setMessageData(String messageData) {
+	public void setMessageData(Object messageData) {
 		this.messageData = messageData;
 	}
 	

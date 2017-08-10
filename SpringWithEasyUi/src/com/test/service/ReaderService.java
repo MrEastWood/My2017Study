@@ -16,4 +16,6 @@ public interface ReaderService {
 	public void modifyReader(Reader reader) throws Exception ;
 	
 	public void deleteReader(Reader reader);
+	
+	public Reader findById(String readerId) throws Exception ;
 }

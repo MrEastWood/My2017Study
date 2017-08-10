@@ -26,13 +26,13 @@ public class MsgUtil {
 	 * @param str 返回报文内容
 	 * @return    需要返回调用方的报文
 	 */
-	public static ReturnMessage genNormalMsg(String str){
+	public static ReturnMessage genNormalMsg(Object obj){
 		
 		ReturnMessage msg = new ReturnMessage();
 		
 		msg.setSuccess(true);
 		msg.setReturnCode("0000");
-		msg.setMessageData(str);
+		msg.setMessageData(obj);
 		
 		return msg;
 		
