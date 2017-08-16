@@ -1,6 +1,8 @@
 package com.test.service;
 
+import java.util.Date;
+
 public interface CommonService {
 	
-	public String getJournal(String idPrefix) throws Exception;
+	public String getJournal(Date date) throws Exception;
 }

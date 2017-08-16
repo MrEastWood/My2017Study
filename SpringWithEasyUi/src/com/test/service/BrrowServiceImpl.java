@@ -14,9 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.test.common.BusException;
 import com.test.dao.BookDao;
+import com.test.dao.BrrowHisDao;
 import com.test.dao.BrrowNowDao;
 import com.test.dao.ReaderDao;
 import com.test.entry.Book;
+import com.test.entry.BrrowHis;
 import com.test.entry.BrrowNow;
 import com.test.entry.Reader;
 
@@ -26,6 +28,8 @@ public class BrrowServiceImpl implements BrrowService {
 	
 	@Autowired
 	protected BrrowNowDao brrowNowDao;
+	@Autowired
+	protected BrrowHisDao brrowHisDao;
 	@Autowired
 	protected ReaderDao readerDao;
 	@Autowired
@@ -75,9 +79,7 @@ public class BrrowServiceImpl implements BrrowService {
 		}
 		
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String dateStr = sdf.format(date);
-		String journal = commonService.getJournal(dateStr);
+		String journal = commonService.getJournal(date);
 		
 		BrrowNow brrowRec = new BrrowNow();
 		brrowRec.setJournal(journal);
@@ -108,7 +110,57 @@ public class BrrowServiceImpl implements BrrowService {
 		
 		return inBrrowList;
 		
-		
 	}
 
+	@Override
+	public void returnBook(String bookId) throws Exception {
+		
+		//检查书籍是否存在
+		Book book = bookDao.getRecordById(Book.class,bookId);
+		if(book == null){
+			BusException e = new BusException("书籍不存在");
+			e.setReturnCode("E006");
+			throw e;
+		}
+		
+		//检查书籍是否处于借出状态
+		if(!book.getBookStatus().equals("B")){
+			BusException e = new BusException("书籍非借出状态");
+			e.setReturnCode("E007");
+			throw e;
+		}
+		
+		//检查借出记录是否存在
+		List<Criterion> cList = new ArrayList<Criterion>();
+		cList.add(Restrictions.eq("book.bookId", bookId));
+		List<BrrowNow> recList = brrowNowDao.getRecordList(BrrowNow.class, cList);
+		if(recList.size() != 1){
+			BusException e = new BusException("借出记录异常，共有" + recList.size() + "条借出记录");
+			e.setReturnCode("E008");
+			throw e;
+		}
+		
+		//插入借还历史
+		BrrowNow brrowNow = recList.get(0);
+		Date date = new Date();
+		String journal = commonService.getJournal(date);
+		
+		BrrowHis brrowHis = new BrrowHis();
+		
+		brrowHis.setJournal(journal);
+		brrowHis.setReader(brrowNow.getReader());
+		brrowHis.setBook(brrowNow.getBook());
+		brrowHis.setBrrowTxnTime(brrowNow.getTxnDate());
+		brrowHis.setReturnTxnTime(date);
+		
+		brrowHisDao.insertRecord(brrowHis);
+		
+		//删除在借记录
+		brrowNowDao.deleteRecordById(brrowNow);
+		
+		//更新书籍状态
+		book.setBookStatus("N");
+		bookDao.modifyRecord(book);
+	}
+	
 }

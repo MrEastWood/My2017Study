@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.test.common.BusException;
 import com.test.common.Pager;
-import com.test.dao.BaseDao;
+import com.test.dao.ClassifyDao;
 import com.test.entry.BookClassify;
 
 @Service("classifyService")
@@ -21,7 +21,7 @@ import com.test.entry.BookClassify;
 public class ClassifyServiceImpl implements ClassifyService {
 
 	@Autowired
-	protected BaseDao<BookClassify> classifyDao;
+	protected ClassifyDao classifyDao;
 
 	@Override
 	public void addClassify(BookClassify classify) throws Exception {

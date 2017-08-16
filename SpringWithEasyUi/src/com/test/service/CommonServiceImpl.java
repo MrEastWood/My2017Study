@@ -1,11 +1,13 @@
 package com.test.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.test.common.BusException;
-import com.test.dao.BaseDao;
 import com.test.dao.MaxIdDao;
 import com.test.entry.MaxId;
 
@@ -16,9 +18,11 @@ public class CommonServiceImpl implements CommonService {
 	@Autowired
 	protected MaxIdDao maxIdDao;
 	@Override
-	public String getJournal(String idPrefix) throws Exception {
+	public String getJournal(Date date) throws Exception {
 		
 		String idType = "journal";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String idPrefix = sdf.format(date);
 		
 		MaxId maxid = maxIdDao.getRecordByIdUpd(MaxId.class, idType);
 		if(maxid == null){

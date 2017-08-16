@@ -62,9 +62,29 @@ public class BrrowController {
 			msg = MsgUtil.genNormalMsg("借书成功");
 		} catch (Exception e) {
 			msg = MsgUtil.genErrMsg(e);
+			e.printStackTrace();
 		}
 		
 		return msg.toString();
 		
 	}
+	
+	@RequestMapping(value="/returnBook")
+	@ResponseBody
+	public String returnBook(HttpServletRequest request){
+		
+		ReturnMessage msg = null;
+		
+		String bookId = request.getParameter("bookId");
+		try{
+			brrowService.returnBook(bookId);
+			msg = MsgUtil.genNormalMsg("还书成功");
+		}catch(Exception e){
+			msg = MsgUtil.genErrMsg(e);
+		}
+		
+		return msg.toString();
+		
+	}
+	
 }

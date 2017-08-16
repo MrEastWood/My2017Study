@@ -1,7 +1,6 @@
 package com.test.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.test.common.BusException;
 import com.test.common.Pager;
-import com.test.dao.BaseDao;
+import com.test.dao.BookDao;
+import com.test.dao.ClassifyDao;
 import com.test.entry.Book;
 import com.test.entry.BookClassify;
 
@@ -23,9 +23,9 @@ import com.test.entry.BookClassify;
 public class BookServiceImpl implements BookService {
 
 	@Autowired
-	protected BaseDao<Book> bookDao;
+	protected BookDao bookDao;
 	@Autowired
-	protected BaseDao<BookClassify> classifyDao;
+	protected ClassifyDao classifyDao;
 
 	@Override
 	public void addBook(Book book) throws Exception {
