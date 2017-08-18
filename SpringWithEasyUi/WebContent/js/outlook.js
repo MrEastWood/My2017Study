@@ -16,7 +16,7 @@ function addNav(data) {
 		$.each(sm.menus, function(j, o) {
 			//使用内嵌Frame来链接到目标页面
 			//menulist += '<li><div><a ref="' + o.menuid + '" href="' + o.url + '" rel="'
-			menulist += '<li><div><a ref="' + o.menuid + '" href="#" rel="'
+			menulist += '<li><div><a ref="' + o.menuid + '" href="homePage.jsp#" rel="'
 					+ o.url + '" ><span class="icon ' + o.icon
 					+ '" >&nbsp;</span><span class="nav">' + o.menuname
 					+ '</span></a></div></li> ';

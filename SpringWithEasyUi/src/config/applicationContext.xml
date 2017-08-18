@@ -63,12 +63,13 @@
  		</property>
  		
  		<!-- 自动扫描实体对象 tdxy.bean的包结构中存放实体类 -->
- 		<property name="packagesToScan" value="com.test.entry" />
+ 		<property name="packagesToScan" value="com.lxy.library.entry" />
 	</bean>
 	
     <!-- 自动扫描组件 -->
-	<context:component-scan base-package="com.test.dao"/>
-	<context:component-scan base-package="com.test.service"/>
+	<context:component-scan base-package="com.lxy.library.dao"/>
+	<context:component-scan base-package="com.lxy.library.service"/>
+	<context:component-scan base-package="com.lxy.library.aspect"/>
     
 	<!-- 定义事务管理 -->
 	<bean id="transactionManager"
@@ -78,6 +79,11 @@
 	
 	<!-- 使用注解方式声明事务  @Transactional -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- 定义日志切面-->
+	<context:component-scan base-package="com.lxy.library.aspect"/>
+	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+	<bean class="com.lxy.library.aspect.SystemLogAspect"></bean>
 	
 	<!--  使用AOP的方式声明事务
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
@@ -100,9 +106,9 @@
  			<tx:method name="*" propagation="NOT_SUPPORTED" read-only="true" />
  		</tx:attributes>
 	</tx:advice>
-	 定义切面，在 * com.test.*.service.*ServiceImpl.*(..) 中执行有关的hibernate session的事务操作
+	 定义切面，在 * com.lxy.library.*.service.*ServiceImpl.*(..) 中执行有关的hibernate session的事务操作
 	<aop:config>
- 		<aop:pointcut id="serviceOperation" expression="execution(* com.test.*.service.*Service.*(..))" />
+ 		<aop:pointcut id="serviceOperation" expression="execution(* com.lxy.library.*.service.*Service.*(..))" />
  		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
 	</aop:config>
 	-->

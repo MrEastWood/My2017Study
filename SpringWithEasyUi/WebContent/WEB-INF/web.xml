@@ -2,9 +2,9 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>SpringWithEasyUi</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>login.html</welcome-file>
+    <welcome-file>login.htm</welcome-file>
+    <welcome-file>login.jsp</welcome-file>
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
@@ -17,6 +17,10 @@
 
   <listener>
   	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>	                
+  </listener>
+  
+  <listener>
+  	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
   </listener>
 
   <servlet>
@@ -60,6 +64,20 @@
   <filter-mapping>
   	<filter-name>OpenSessionInViewFilter</filter-name>
   	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 配置登录拦截 -->
+  <filter>
+  	<filter-name>sessionFilter</filter-name>
+  	<filter-class>com.lxy.library.filter.SessionFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>sessionFilter</filter-name>
+  	<url-pattern>*.jsp</url-pattern>
+  	<url-pattern>*.html</url-pattern>
+  	<url-pattern>*.do</url-pattern>
+  	<url-pattern>*.action</url-pattern>
   </filter-mapping>
   
 </web-app>
