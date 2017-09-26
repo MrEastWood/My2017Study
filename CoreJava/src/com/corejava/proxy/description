@@ -1,0 +1,17 @@
+动态代理的原理分析：
+	1. 角色
+		被代理对象，普通的Java类，但必须是基于接口的
+		代理，需要继承InvocationHandler，并在invoke方法中，调用被代理对象的方法，并加上自己的处理
+		Proxy，Java提供的实现动态代理的类，通过调用它的静态方法newProxyInstance，可以产生一个动态代理对象
+	2. 详细使用说明
+		1. 代理里面需要定义一个属性，包含被代理对象的引用
+		2. 代理里面的invoke方法中，method需要invoke被代理对象，表名是被代理对象调起此方法
+		3. Proxy创建代理对象时，参数classLoader为被代理对象的classLoader，interfaces为被代理对象实现的接口， InvocationHandler为代理对象
+		4. 创建好的对象的代理，可强制转换类型为被代理对象的任意接口
+		5. 可以像正常类一样，调用此代理的方法
+	3. 原理
+		策略模式，因为将InvocationHandler传入了Proxy，即传入的产生的代理对象中，
+		每次调用代理对象的方法，实际上调起的是InvocationHandler的invoke方法，并将代理对象本身，方法，参数传给invoke方法
+	动态代理不仅能继承被代理对象的方法，也能继承被代理对象的属性
+	很正常，因为被代理对象已经传给InvocationHandler了
+		

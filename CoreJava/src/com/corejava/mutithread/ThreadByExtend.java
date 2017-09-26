@@ -13,7 +13,7 @@ public class ThreadByExtend extends Thread {
 		t2.start();
 		
 		sleep(1000L);
-		//由于是两个不同的对象，非静态变量值不受影响
+		//静态变量，不同对象指向同一个静态 变量，会受影响
 		Thread2 t3 = new Thread2();
 		Thread2 t4 = new Thread2();
 		
