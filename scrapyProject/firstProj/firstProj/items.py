@@ -15,6 +15,8 @@ class FirstprojItem(scrapy.Item):
 
 class NovelItem(scrapy.Item):
     title = scrapy.Field()
-    link = scrapy.Field()
-    desc = scrapy.Field()
+    url = scrapy.Field()
+    content = scrapy.Field()
+
+
 
